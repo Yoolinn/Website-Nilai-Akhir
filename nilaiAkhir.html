@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Nilai Akhir</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .grade-form {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="grade-form">
+        <h2 class="text-center">Nilai Akhir Mahasiswa</h2>
+        <form id="gradeForm">
+            <div class="form-group">
+                <label for="namalengkap">Nama Lengkap</label>
+                <input type="text" class="form-control" id="namalengkap" placeholder="Masukkan Nama Lengkap" required>
+            </div>
+            <div class="form-group">
+                <label for="npm">NPM</label>
+                <input type="text" class="form-control" id="npm" placeholder="Masukkan NPM" required>
+            </div>
+            <div class="form-group">
+                <label for="attendance">Kehadiran (%)</label>
+                <input type="number" class="form-control" id="attendance" placeholder="Masukkan Nilia Kehadiran" min="0" max="100" required>
+            </div>
+            <div class="form-group">
+                <label for="assignment">Nilai Tugas</label>
+                <input type="number" class="form-control" id="assignment" placeholder="Masukkan Nilai Tugas" min="0" max="100" required>
+            </div>
+            <div class="form-group">
+                <label for="midterm">Ujian Tengah Semester</label>
+                <input type="number" class="form-control" id="midterm" placeholder="Masukkan Nilai UTS" min="0" max="100" required>
+            </div>
+            <div class="form-group">
+                <label for="finalExam">Ujian Akhir Semester</label>
+                <input type="number" class="form-control" id="finalExam" placeholder="Masukkan Nilai UAS" min="0" max="100" required>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="calculateGrade()">Nilai Akhir</button>
+            <div id="result" class="mt-3"></div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS and Popper.js (optional) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    function calculateGrade() {
+        // Get input values
+        var attendance = parseFloat(document.getElementById('attendance').value);
+        var assignment = parseFloat(document.getElementById('assignment').value);
+        var midterm = parseFloat(document.getElementById('midterm').value);
+        var finalExam = parseFloat(document.getElementById('finalExam').value);
+
+        // Calculate final score
+        var finalScore = (attendance * 0.1) + (assignment * 0.2) + (midterm * 0.35) + (finalExam * 0.35);
+
+        // Determine grade index
+        var gradeIndex;
+        if (finalScore >= 80) {
+            gradeIndex = 'A';
+        } else if (finalScore >= 70) {
+            gradeIndex = 'B';
+        } else if (finalScore >= 60) {
+            gradeIndex = 'C';
+        } else if (finalScore >= 50) {
+            gradeIndex = 'D';
+        } else {
+            gradeIndex = 'E';
+        }
+
+        // Display result
+        var resultContainer = document.getElementById('result');
+        resultContainer.innerHTML = '<p>Hasil Akhir: ' + finalScore.toFixed(2) + '</p><p>Index: ' + gradeIndex + '</p>';
+    }
+</script>
+
+</body>
+</html>
